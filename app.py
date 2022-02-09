@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 
 DEBUG = True
 PORT = 8000
@@ -11,6 +11,10 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return 'Welcome to Whip.'
+
+@app.route('/pantry/<username>') # When someone goes here...
+def hello(username): # Do this.
+    return " {}'s Pantry".format(username)
 
 # Run the app when the program starts!
 if __name__ == '__main__':
