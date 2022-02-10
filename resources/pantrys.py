@@ -15,4 +15,6 @@ def pantrys_index():
 def create_pantry():
     payload = request.get_json()
     print(payload)
-    return "you hit the create route"
+    new_pantry = models.Pantry.create(item=payload['item'], quantity=payload['quantity'], category=payload['category'])
+    print(new_pantry)
+    return "created a new item"

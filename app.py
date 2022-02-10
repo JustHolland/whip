@@ -19,12 +19,12 @@ def index():
 
 @app.route('/nested_json')
 def get_nested_json():
-    food_dict = {
+    pantry_dict = {
         'item': 'chicken',
-        'quanity': 2,
-
+        'quantity': 2,
+        'category': 'meat_fridge',
     }
-    return jsonify(name="Justine", age=29, food=food_dict)
+    return jsonify(name="Justine", age=29, pantry=pantry_dict)
 
 
 

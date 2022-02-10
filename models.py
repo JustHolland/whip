@@ -6,7 +6,8 @@ DATABASE = SqliteDatabase('whip.sqlite')
 
 class Pantry(Model):
     item = CharField()
-    quanity = IntegerField()
+    quantity = IntegerField()
+    category = CharField()
     created_at = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
