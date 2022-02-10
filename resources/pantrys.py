@@ -1,11 +1,18 @@
 import models
 
-from flask import Blueprint
+from flask import Blueprint, request
 
 
 
-pantrys= Blueprint('pantry', 'pantrys')
+pantrys= Blueprint('pantrys', 'pantrys')
 
-@pantrys.route('/')
+@pantrys.route('/', methods=['GET'])
 def pantrys_index():
     return "pantry is working"
+
+
+@pantrys.route('/', methods=['POST'])
+def create_pantry():
+    payload = request.get_json()
+    print(payload)
+    return "you hit the create route"
