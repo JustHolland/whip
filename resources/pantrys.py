@@ -62,3 +62,17 @@ def update_pantry(id):
         message='resource updated successfully',
         status=200,
     ), 200
+
+
+@pantrys.route('/<id>', methods=['DELETE'])
+def delete_pantry(id):
+    delete_query = models.Pantry.delete().where(models.Pantry.id == id)
+    nums_of_rows_deleted = delete_query.execute()
+    print(nums_of_rows_deleted)
+
+
+    return jsonify(
+        data={},
+        message=f"Successfully deleted {nums_of_rows_deleted} item with id {id}",
+        status=200
+    ), 200
