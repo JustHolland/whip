@@ -1,5 +1,7 @@
 from flask import Flask, jsonify
 
+from resources.pantrys import pantrys
+
 import models
 
 DEBUG = True
@@ -9,7 +11,7 @@ PORT = 8000
 # This starts the website!
 app = Flask(__name__)
 
-
+app.register_blueprint(pantrys, url_prefix='/api/v1/pantrys')
 # The default URL ends in / ("my-website.com/").
 @app.route('/')
 def index():
