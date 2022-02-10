@@ -3,7 +3,6 @@ import models
 from flask import Blueprint, request, jsonify
 from playhouse.shortcuts import model_to_dict
 
-
 pantrys= Blueprint('pantrys', 'pantrys')
 
 @pantrys.route('/', methods=['GET'])
@@ -40,3 +39,26 @@ def create_pantry():
     message= 'Successfully created a new item in your pantry',
     status= 201
     ),201
+
+@pantrys.route('/<id>', methods=['GET'])
+def get_one_pantry(id):
+    pantry = models.Pantry.get_by_id(id)
+    print(pantry)
+
+    return jsonify(
+        data = model_to_dict(pantry),
+        message = 'Success',
+        status = 200
+    ), 200
+
+
+@pantrys.route('/<id>', methods=['PUT'])
+def update_pantry(id):
+    payload = request.get_json()
+    models.Pantry.update(**payload).where(models.Pantry.id == id).execute()
+
+    return jsonify(
+        data=model_to_dict(models.Pantry.get_by_id(id)),
+        message='resource updated successfully',
+        status=200,
+    ), 200
