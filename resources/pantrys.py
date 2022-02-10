@@ -11,7 +11,17 @@ def pantrys_index():
     result = models.Pantry.select()
     print('results of pantry')
     print(result)
-    return "in terminal "
+
+    for pantry in result:
+        print(pantry.__data__)
+
+    pantry_dicts = [model_to_dict(pantry) for pantry in result]
+
+    return jsonify({
+        'data': pantry_dicts,
+        'message': f"Successfullly found {len(pantry_dicts)} in the pantry",
+        'status': 200
+    }), 200
 
 
 @pantrys.route('/', methods=['POST'])
@@ -26,7 +36,7 @@ def create_pantry():
     pantry_dict = model_to_dict(new_pantry)
 
     return jsonify(
-    data=pantry_dict,
-    message='Successfully created a new item in your pantry',
-    status=201
+    data= pantry_dict,
+    message= 'Successfully created a new item in your pantry',
+    status= 201
     ),201
