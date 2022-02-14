@@ -17,7 +17,7 @@ class Pantry(Model):
     item = CharField()
     quantity = IntegerField()
     category = CharField()
-    user = ForeignKeyField(User, backref = 'pantrys')
+    puser = ForeignKeyField(User, backref = 'pantrys')
     created_at = DateTimeField(default=datetime.datetime.now)
 
     class Meta:

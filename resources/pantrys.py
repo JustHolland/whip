@@ -2,6 +2,7 @@ import models
 
 from flask import Blueprint, request, jsonify
 from playhouse.shortcuts import model_to_dict
+from flask_login import current_user
 
 pantrys= Blueprint('pantrys', 'pantrys')
 
@@ -11,28 +12,30 @@ def pantrys_index():
     print('results of pantry')
     print(result)
 
-    for pantry in result:
-        print(pantry.__data__)
+ current_user_pantry_dicts = [model_to_dict(pantry) for pantry in current_user.pantrys] # *sparkle*
 
-    pantry_dicts = [model_to_dict(pantry) for pantry in result]
+    for pantry_dict in current_user_pantry_dicts:
+        pantry_dict['puser'].pop('password')
 
     return jsonify({
-        'data': pantry_dicts,
-        'message': f"Successfullly found {len(pantry_dicts)} in the pantry",
+        'data': current_user_pantry_dicts,
+        'message': f"Successfullly found {len(current_user_pantry_dicts)} pantrys",
         'status': 200
     }), 200
 
 
+################################create Route################################
 @pantrys.route('/', methods=['POST'])
 def create_pantry():
     payload = request.get_json()
     print(payload)
-    new_pantry = models.Pantry.create(item=payload['item'], quantity=payload['quantity'], category=payload['category'])
+    new_pantry = models.Pantry.create(item=payload['item'], quantity=payload['quantity'], puser=payload['puser'])
     print(new_pantry)
     print(new_pantry.__dict__)
 
 
     pantry_dict = model_to_dict(new_pantry)
+    pantry_dict['puser'].pop('password')
 
     return jsonify(
     data= pantry_dict,
@@ -52,6 +55,7 @@ def get_one_pantry(id):
     ), 200
 
 
+#################################update route###################################
 @pantrys.route('/<id>', methods=['PUT'])
 def update_pantry(id):
     payload = request.get_json()
@@ -64,6 +68,7 @@ def update_pantry(id):
     ), 200
 
 
+####################################delete route############################
 @pantrys.route('/<id>', methods=['DELETE'])
 def delete_pantry(id):
     delete_query = models.Pantry.delete().where(models.Pantry.id == id)
