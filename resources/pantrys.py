@@ -12,7 +12,7 @@ def pantrys_index():
     print('results of pantry')
     print(result)
 
- current_user_pantry_dicts = [model_to_dict(pantry) for pantry in current_user.pantrys] # *sparkle*
+    current_user_pantry_dicts = [model_to_dict(pantry) for pantry in current_user.pantrys] 
 
     for pantry_dict in current_user_pantry_dicts:
         pantry_dict['puser'].pop('password')
