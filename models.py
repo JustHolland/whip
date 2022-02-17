@@ -15,17 +15,25 @@ class User(UserMixin, Model):
 
 class Pantry(Model):
     item = CharField()
-    quantity = IntegerField()
-    category = CharField()
-    puser = ForeignKeyField(User, backref = 'pantrys')
+    quantity = CharField()
+    catergory = CharField()
     created_at = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
         database = DATABASE
 
 
+
+
+
+class Spoon(Model):
+
+        class Meta:
+            database = DATABASE
+
+
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User, Pantry], safe=True)
+    DATABASE.create_tables([User, Pantry, Spoon], safe=True)
     print("TABLES Created")
     DATABASE.close()
