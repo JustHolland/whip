@@ -18,7 +18,7 @@ PORT=os.environ.get("PORT")
 
 
 app = Flask(__name__) # instantiating the Flask class to create an app
-
+CORS(app)
 
 app.secret_key = os.environ.get("APP_SECRET")
 
@@ -40,8 +40,8 @@ def load_user(user_id):
         return None
 
 
-CORS(pantrys, origins=['http://localhost:3000','https://whipfront.herokuapp.com'], supports_credentials=True)
-CORS(users, origins=['http://localhost:3000','https://whipfront.herokuapp.com'], supports_credentials=True)
+# CORS(pantrys, origins=['http://localhost:3000','https://whipfront.herokuapp.com'], supports_credentials=True)
+# CORS(users, origins=['http://localhost:3000','https://whipfront.herokuapp.com'], supports_credentials=True)
 ##FE REACT APP
 
 app.register_blueprint(pantrys, url_prefix='/api/v1/pantrys')
