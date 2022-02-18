@@ -40,12 +40,14 @@ def load_user(user_id):
         return None
 
 
-CORS(pantrys, origins=['http://localhost:3000'], supports_credentials=True)
-CORS(users, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(pantrys, origins=['http://localhost:3000','https://whipfront.herokuapp.com'], supports_credentials=True)
+CORS(users, origins=['http://localhost:3000','https://whipfront.herokuapp.com'], supports_credentials=True)
 ##FE REACT APP
 
 app.register_blueprint(pantrys, url_prefix='/api/v1/pantrys')
 app.register_blueprint(users, url_prefix='/api/v1/users')
+
+
 
 
 @app.before_request # use this decorator to cause a function to run before reqs
@@ -62,6 +64,8 @@ def before_request():
         models.DATABASE.close()
         return response # go ahead and send response back to client
                       # (in our case this will be some JSON)
+
+
 
 @app.route('/') # @ symbol here means this is a decorator
 def hello():

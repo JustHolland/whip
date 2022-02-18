@@ -7,7 +7,7 @@ from flask_login import current_user
 API_KEY = os.environ.get("SPOONACULAR_KEY")
 
 
-@spoon.route('/', methods=['GET', 'POST'])
+@recipe.route('/', methods=['GET', 'POST'])
 def recipes():
     if request.method == 'POST':
         content = requests.get(
@@ -23,15 +23,15 @@ def recipes():
 
 
 
-@spoon.route('/recipe/<recipe_id>', methods=['GET'])
+@recipe.route('https://api.spoonacular.com/recipes/random?apiKey=68d99d68c7e64c0bac45eb3d9dd0faf3', methods=['GET'])
 def recipe(recipe_id):
-    response = requests.get("https://api.spoonacular.com/recipes/informationBulk?ids="+recipe_id+"&includeNutrition=true&apiKey="+API_KEY)
+    response = requests.get("https://api.spoonacular.com/recipes/random?apiKey=68d99d68c7e64c0bac45eb3d9dd0faf3)
     return make_response(render_template("recipe_details.html", recipe_id=json.loads(response.text)), 200)
 
 
 
 
-@spoon.route('/api/search_results', methods=["POST"])
+@recipe.route('/api/search_results', methods=["POST"])
 def search_results():
 
 
