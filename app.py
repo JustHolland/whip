@@ -44,7 +44,7 @@ CORS(pantrys, origins=['http://localhost:3000','https://whipfront.herokuapp.com/
 CORS(users, origins=['http://localhost:3000','https://whipfront.herokuapp.com'], supports_credentials=True)
 ##FE REACT APP
 
-app.register_blueprint(pantrys, url_prefix='/api/v1/pantrys')
+app.register_blueprint(pantrys, url_prefix='/api/v1/pantrys/')
 app.register_blueprint(users, url_prefix='/api/v1/users')
 
 
